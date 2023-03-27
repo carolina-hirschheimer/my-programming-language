@@ -6,14 +6,17 @@
 ## EBNF
 ```
 BLOCK = { STATEMENT };
-STATEMENT = ( λ | ASSIGNMENT | PRINT | WHILE | IF ), "\n" ;
+STATEMENT = ( λ | ASSIGNMENT | PRINT | WHILE | IF | FUNCTION), "\n" ;
 ASSIGNMENT = IDENTIFIER, "=", EXPRESSION ;
 
 PRINT = "imprimir", "(", OR_EXPRESSION, ")" ;
 WHILE = "enquanto", "(",  OR_EXPRESSION, ")", "{", STATEMENT, "}" ;
 IF = "se", "(", EXPRESSION, ")", "{", STATEMENT, "}" |
      "se", "(", EXPRESSION, ")", "{", STATEMENT, "}", "senao", "{", STATEMENT, "}" ;
-     
+
+FUNCTION = "definir", IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")",  "{", { STATEMENT }, "}", RETURN;
+RETURN = "retorna" OR_EXPRESSION;
+
 OR_EXPRESSION = AND_EXPRESSION, {"ou", AND_EXPRESSION};
 AND_EXPRESSION = EQUAL_EXPRESSION, {"e", EQUAL_EXPRESSION};
 EQUAL_EXPRESSION = COMPARE_EXPRESSION, {"igual_a", COMPARE_EXPRESSION};
