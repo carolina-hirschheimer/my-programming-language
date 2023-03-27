@@ -1,7 +1,8 @@
 # Uma Lingagem de Programação
 #### Feito por Carolina Hirschheimer
 
-## Introdução 
+## Introdução
+Este projeto faz parte da disciplina de Lógica da Computação (7º Semestre de Engenharia da Computação - Insper) e tem por objetivo que os alunos criem uma linguagem de programação com todas as respectivas estruturas básicas: variáveis, condicionais, loops e funções. Para este projeto, será feita uma linguagem de **programação em português**, com comandos como "imprimir" no lugar do "print" ou "enquanto" no lugar do "while". Veja a EBNF está descrita abaixo:
 
 ## EBNF
 ```
