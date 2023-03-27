@@ -33,8 +33,4 @@ BOOLEAN = "verdadeiro" | "falso";
 STRING = """, { {LETTER | DIGIT | "_"} | SPACE }, """;
 SPACE = " ";
 TYPE = "int" | "bool" | "texto"
-
-
-
-
 ```
