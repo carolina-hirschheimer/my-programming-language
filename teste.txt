@@ -1,2 +1,2 @@
-a = 1
-
+imprimir("oi")
+a recebe 1

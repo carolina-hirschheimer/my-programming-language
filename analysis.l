@@ -16,11 +16,13 @@ OR_EXPR or
 PRINT imprimir
 WHILE enquanto
 IF se
+ELSE senao
 FUNCTION definir
 RETURN retorna
 EQUAL_EXPR igual_a
 COMPARE_EXPR maior_que|menor_que
-IDENTIFIER  [a-zA-Z_][_a-zA-Z0-9]* 
+IDENTIFIER  [a-zA-Z_][_a-zA-Z0-9]*
+RECEIVE recebe 
 PLUS "+"
 MINUS "-"
 MULT "*"
@@ -39,9 +41,11 @@ TYPE int|bool|texto
 {PRINT}                 { printf("PRINT: %s\n", yytext); return PRINT; }
 {WHILE}                 { printf("WHILE: %s\n", yytext); return WHILE; }
 {IF}                    { printf("IF: %s\n", yytext); return IF; }
+{ELSE}                  { printf("ELSE: %s\n", yytext); return ELSE; }
 {FUNCTION}              { printf("FUNCTION: %s\n", yytext); return FUNCTION; }
 {RETURN}                { printf("RETURN: %s\n", yytext); return RETURN; }
 {EQUAL_EXPR}            { printf("EQUAL_EXPR: %s\n", yytext); return EQUAL_EXPR; }
+{RECEIVE}               { printf("RECEIVE: %s\n", yytext); return RECEIVE; }
 {COMPARE_EXPR}          { printf("COMPARE_EXPR: %s\n", yytext); return COMPARE_EXPR; }
 {PLUS}                  { printf("PLUS: %s\n", yytext); return PLUS; }
 {MINUS}                 { printf("MINUS: %s\n", yytext); return MINUS; }
@@ -74,9 +78,10 @@ int yywrap() {
     return 1;
 }
 
-
+/*
 int main()
 {
     yylex();
     return 0;
 }
+*/

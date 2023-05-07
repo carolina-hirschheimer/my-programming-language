@@ -7,7 +7,7 @@ void yyerror(const char *s) { printf("ERROR: %s\n", s); }
 
 %}
 
-%token TYPE AND_EXPR OR_EXPR PRINT WHILE IF FUNCTION RETURN EQUAL_EXPR COMPARE_EXPR PLUS MINUS MULT DIV COMMA NOT BOOLEAN
+%token TYPE AND_EXPR OR_EXPR PRINT WHILE IF ELSE FUNCTION RETURN EQUAL_EXPR RECEIVE COMPARE_EXPR PLUS MINUS MULT DIV COMMA NOT BOOLEAN
 %token OPEN_PARENTHESIS CLOSE_PARENTHESIS OPEN_BRACES CLOSE_BRACES NEWLINE
 %token IDENTIFIER INT FLOAT STRING
 
@@ -25,15 +25,14 @@ statement_list : statement
                | statement_list statement
                ;
         
-statement : POSITION IDENTIFIER COLON relexpression
-          | IDENTIFIER EQUAL relexpression
-          | PRINT LPAREN print_list RPAREN
-          | IF LPAREN relexpression RPAREN block
-          | IF LPAREN relexpression RPAREN block ELSE block
-          | WHILE LPAREN relexpression RPAREN block 
-          | FUNCTION_DECLARATION IDENTIFIER LPAREN parameter_list RPAREN block
-          | FUNCTION_CALL IDENTIFIER LPAREN parameter_list RPAREN
-          | SHOOT relexpression
+statement : TYPE IDENTIFIER relexpression
+          | IDENTIFIER RECEIVE relexpression
+          | PRINT OPEN_PARENTHESIS print_list CLOSE_PARENTHESIS
+          | IF OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block
+          | IF OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block ELSE block
+          | WHILE OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block 
+          | FUNCTION IDENTIFIER OPEN_PARENTHESIS parameter_list CLOSE_PARENTHESIS block
+          | IDENTIFIER OPEN_PARENTHESIS parameter_list CLOSE_PARENTHESIS
           ;
 
 parameter_list : IDENTIFIER
@@ -44,16 +43,15 @@ print_list : relexpression
            | print_list COMMA relexpression
            ;
 
-relexpression: expression EQUAL_TO expression
-             | expression GT expression
-             | expression LT expression
+relexpression: expression EQUAL_EXPR expression
+             | expression COMPARE_EXPR expression
              | expression
              ;
 
 // ok
 expression: term PLUS term
           | term MINUS term
-          | term OR term
+          | term OR_EXPR term
           | term
           ;
 
@@ -61,18 +59,17 @@ expression: term PLUS term
 term: factor
     | term MULT factor
     | term DIV factor
-    | term AND factor
+    | term AND_EXPR factor
     ;
 
 
-factor: INTEGER 
+factor: INT 
     | STRING 
-    | COORDINATE
     | IDENTIFIER 
     | PLUS factor
     | MINUS factor
     | NOT factor
-    | LPAREN relexpression RPAREN
+    | OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS
     ;
 
 
