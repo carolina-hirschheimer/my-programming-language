@@ -15,7 +15,7 @@ WHILE = "enquanto", "(",  OR_EXPRESSION, ")", "{", STATEMENT, "}" ;
 IF = "se", "(", EXPRESSION, ")", "{", STATEMENT, "}" |
      "se", "(", EXPRESSION, ")", "{", STATEMENT, "}", "senao", "{", STATEMENT, "}" ;
 
-FUNCTION = "definir", IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")",  "{", { STATEMENT }, "}", RETURN;
+FUNCTION = "definir", IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")",  "{", { STATEMENT }, "}", RETURN, OR_EXPRESSION;
 RETURN = "retorna" OR_EXPRESSION;
 CALL_FUNCTION = IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")";
 
