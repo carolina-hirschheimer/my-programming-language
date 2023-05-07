@@ -1,7 +1,15 @@
 imprimir('oi')
 int a recebe 1
 int b recebe 2
-definir soma(x,y) {
-    retorna x
+imprimir(a)
+se (a + b igual_a 3) {
+    imprimir(a+b)
+} 
+senao {
+    imprimir('nao eh')
 }
-
+definir soma(x,y) {
+    int res recebe x+y
+    retorna res
+}
+soma(a,b)
