@@ -1,2 +1,7 @@
-imprimir("oi")
-a recebe 1
+imprimir('oi')
+int a recebe 1
+int b recebe 2
+definir soma(x,y) {
+    retorna x
+}
+

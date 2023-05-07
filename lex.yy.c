@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 31
-#define YY_END_OF_BUFFER 32
+#define YY_NUM_RULES 30
+#define YY_END_OF_BUFFER 31
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -362,19 +362,19 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[117] =
     {   0,
-        0,    0,   32,   30,   29,    1,   18,   30,   21,   22,
-       16,   14,   19,   15,   17,   27,   26,   26,   26,   26,
-       26,   26,   26,   26,   26,   26,   26,   26,   26,   23,
-       24,    0,   25,    0,    0,   27,   26,   26,   26,   26,
-       26,   26,   26,   26,   26,   26,   26,    4,   26,    7,
-       26,   26,   28,    3,   26,   26,   26,   26,   26,   26,
-        2,   26,   26,   26,   26,   26,   26,   26,   26,   26,
-       26,   26,   26,   26,   26,   26,   26,   26,   26,   26,
-       26,   26,   20,   26,   26,   26,   26,   26,   26,    8,
-       26,   26,   26,   26,   26,   26,   26,   12,   26,   26,
+        0,    0,   31,   29,   28,   28,   17,   29,   20,   21,
+       15,   13,   18,   14,   16,   26,   25,   25,   25,   25,
+       25,   25,   25,   25,   25,   25,   25,   25,   25,   22,
+       23,    0,   24,    0,    0,   26,   25,   25,   25,   25,
+       25,   25,   25,   25,   25,   25,   25,    3,   25,    6,
+       25,   25,   27,    2,   25,   25,   25,   25,   25,   25,
+        1,   25,   25,   25,   25,   25,   25,   25,   25,   25,
+       25,   25,   25,   25,   25,   25,   25,   25,   25,   25,
+       25,   25,   19,   25,   25,   25,   25,   25,   25,    7,
+       25,   25,   25,   25,   25,   25,   25,   11,   25,   25,
 
-        9,   26,   11,   26,   26,   26,   10,   26,    6,    5,
-       26,   26,   26,   13,   26,    0
+        8,   25,   10,   25,   25,   25,    9,   25,    5,    4,
+       25,   25,   25,   12,   25,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -799,162 +799,157 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
-/* rule 1 can match eol */
 YY_RULE_SETUP
 #line 37 "analysis.l"
-{ printf("NEWLINE: %s\n", yytext); return NEWLINE; }
+{ printf("TYPE: %s\n", yytext); return TYPE; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 38 "analysis.l"
-{ printf("TYPE: %s\n", yytext); return TYPE; }
+{ printf("AND_EXPR: %s\n", yytext); return AND_EXPR; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 39 "analysis.l"
-{ printf("AND_EXPR: %s\n", yytext); return AND_EXPR; }
+{ printf("OR_EXPR: %s\n", yytext); return OR_EXPR; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 40 "analysis.l"
-{ printf("OR_EXPR: %s\n", yytext); return OR_EXPR; }
+{ printf("PRINT: %s\n", yytext); return PRINT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 41 "analysis.l"
-{ printf("PRINT: %s\n", yytext); return PRINT; }
+{ printf("WHILE: %s\n", yytext); return WHILE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 42 "analysis.l"
-{ printf("WHILE: %s\n", yytext); return WHILE; }
+{ printf("IF: %s\n", yytext); return IF; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 43 "analysis.l"
-{ printf("IF: %s\n", yytext); return IF; }
+{ printf("ELSE: %s\n", yytext); return ELSE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 44 "analysis.l"
-{ printf("ELSE: %s\n", yytext); return ELSE; }
+{ printf("FUNCTION: %s\n", yytext); return FUNCTION; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 45 "analysis.l"
-{ printf("FUNCTION: %s\n", yytext); return FUNCTION; }
+{ printf("RETURN: %s\n", yytext); return RETURN; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 46 "analysis.l"
-{ printf("RETURN: %s\n", yytext); return RETURN; }
+{ printf("EQUAL_EXPR: %s\n", yytext); return EQUAL_EXPR; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 47 "analysis.l"
-{ printf("EQUAL_EXPR: %s\n", yytext); return EQUAL_EXPR; }
+{ printf("RECEIVE: %s\n", yytext); return RECEIVE; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 48 "analysis.l"
-{ printf("RECEIVE: %s\n", yytext); return RECEIVE; }
+{ printf("COMPARE_EXPR: %s\n", yytext); return COMPARE_EXPR; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 49 "analysis.l"
-{ printf("COMPARE_EXPR: %s\n", yytext); return COMPARE_EXPR; }
+{ printf("PLUS: %s\n", yytext); return PLUS; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 50 "analysis.l"
-{ printf("PLUS: %s\n", yytext); return PLUS; }
+{ printf("MINUS: %s\n", yytext); return MINUS; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 51 "analysis.l"
-{ printf("MINUS: %s\n", yytext); return MINUS; }
+{ printf("MULT: %s\n", yytext); return MULT; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 52 "analysis.l"
-{ printf("MULT: %s\n", yytext); return MULT; }
+{ printf("DIV: %s\n", yytext); return DIV; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 53 "analysis.l"
-{ printf("DIV: %s\n", yytext); return DIV; }
+{ printf("NOT: %s\n", yytext); return NOT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 54 "analysis.l"
-{ printf("NOT: %s\n", yytext); return NOT; }
+{ printf("COMMA: %s\n", yytext); return COMMA; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 55 "analysis.l"
-{ printf("COMMA: %s\n", yytext); return COMMA; }
+{ printf("BOOLEAN: %s\n", yytext); return BOOLEAN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 56 "analysis.l"
-{ printf("BOOLEAN: %s\n", yytext); return BOOLEAN; }
+#line 57 "analysis.l"
+{ printf("OPEN_PARENTHESIS: %s \n", yytext); return OPEN_PARENTHESIS; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 58 "analysis.l"
-{ printf("OPEN_PARENTHESIS: %s \n", yytext); return OPEN_PARENTHESIS; }
+{ printf("CLOSE_PARENTHESIS: %s \n", yytext); return CLOSE_PARENTHESIS; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 59 "analysis.l"
-{ printf("CLOSE_PARENTHESIS: %s \n", yytext); return CLOSE_PARENTHESIS; }
+{ printf("OPEN_BRACES: %s \n", yytext); return OPEN_BRACES; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 60 "analysis.l"
-{ printf("OPEN_BRACES: %s \n", yytext); return OPEN_BRACES; }
+{ printf("CLOSE_BRACES: %s \n", yytext); return CLOSE_BRACES; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 61 "analysis.l"
-{ printf("CLOSE_BRACES: %s \n", yytext); return CLOSE_BRACES; }
+#line 63 "analysis.l"
+{ printf("STRING: %s\n", yytext); return STRING; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 64 "analysis.l"
-{ printf("STRING: %s\n", yytext); return STRING; }
+#line 65 "analysis.l"
+{ printf("IDENTIFIER: %s\n", yytext);  return IDENTIFIER;  }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 66 "analysis.l"
-{ printf("IDENTIFIER: %s\n", yytext);  return IDENTIFIER;  }
+{ printf("INT: %s \n", yytext); return INT; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 67 "analysis.l"
-{ printf("INT: %s \n", yytext); return INT; }
+{ printf("FLOAT: %s \n", yytext); return FLOAT; }
 	YY_BREAK
 case 28:
+/* rule 28 can match eol */
 YY_RULE_SETUP
-#line 68 "analysis.l"
-{ printf("FLOAT: %s \n", yytext); return FLOAT; }
+#line 69 "analysis.l"
+{ /* ignore */ }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 70 "analysis.l"
-{ /* ignore */ }
+#line 71 "analysis.l"
+{ printf("ERRO: %s \n", yytext); return 404; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 72 "analysis.l"
-{ printf("ERRO: %s \n", yytext); return 404; }
-	YY_BREAK
-case 31:
-YY_RULE_SETUP
-#line 75 "analysis.l"
+#line 74 "analysis.l"
 ECHO;
 	YY_BREAK
-#line 958 "lex.yy.c"
+#line 953 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1959,7 +1954,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 75 "analysis.l"
+#line 74 "analysis.l"
 
 
 int yywrap() {

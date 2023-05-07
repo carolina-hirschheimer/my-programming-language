@@ -18,20 +18,22 @@ void yyerror(const char *s) { printf("ERROR: %s\n", s); }
 program : statement_list 
         ;
 
-block : statement_list
+block : OPEN_BRACES statement_list CLOSE_BRACES
+      | OPEN_BRACES CLOSE_BRACES
       ;
-        
+
 statement_list : statement
                | statement_list statement
                ;
         
 statement : TYPE IDENTIFIER relexpression
-          | IDENTIFIER RECEIVE relexpression
+          | IDENTIFIER
+          | TYPE IDENTIFIER RECEIVE relexpression
           | PRINT OPEN_PARENTHESIS print_list CLOSE_PARENTHESIS
           | IF OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block
           | IF OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block ELSE block
           | WHILE OPEN_PARENTHESIS relexpression CLOSE_PARENTHESIS block 
-          | FUNCTION IDENTIFIER OPEN_PARENTHESIS parameter_list CLOSE_PARENTHESIS block
+          | FUNCTION IDENTIFIER OPEN_PARENTHESIS parameter_list CLOSE_PARENTHESIS OPEN_BRACES statement_list RETURN statement CLOSE_BRACES
           | IDENTIFIER OPEN_PARENTHESIS parameter_list CLOSE_PARENTHESIS
           ;
 

@@ -34,7 +34,6 @@ TYPE int|bool|texto
 
 %%
 
-"\n"                    { printf("NEWLINE: %s\n", yytext); return NEWLINE; }
 {TYPE}                  { printf("TYPE: %s\n", yytext); return TYPE; }
 {AND_EXPR}              { printf("AND_EXPR: %s\n", yytext); return AND_EXPR; }
 {OR_EXPR}               { printf("OR_EXPR: %s\n", yytext); return OR_EXPR; }
@@ -67,7 +66,7 @@ TYPE int|bool|texto
 {DIGIT}+                { printf("INT: %s \n", yytext); return INT; }
 {DIGIT}+[.]{DIGIT}+     { printf("FLOAT: %s \n", yytext); return FLOAT; }
 
-[ \t]                   { /* ignore */ }
+[ \t\n]                   { /* ignore */ }
 
 . { printf("ERRO: %s \n", yytext); return 404; }
 
