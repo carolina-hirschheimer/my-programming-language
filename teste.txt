@@ -1,2 +1,2 @@
-imprimir("a")
+a = 1
 

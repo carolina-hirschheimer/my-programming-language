@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include "analysis.tab.h"
 //extern int yywrap();
 %}
 
@@ -19,7 +20,7 @@ FUNCTION definir
 RETURN retorna
 EQUAL_EXPR igual_a
 COMPARE_EXPR maior_que|menor_que
-ID  [a-zA-Z_][a-zA-Z0-9_]
+IDENTIFIER  [a-zA-Z_][_a-zA-Z0-9]* 
 PLUS "+"
 MINUS "-"
 MULT "*"
@@ -58,7 +59,7 @@ TYPE int|bool|texto
 
 \'([^\\\n]|(\\.))*\'    { printf("STRING: %s\n", yytext); return STRING; }
 
-{ID}                    { printf("IDENTIFIER: %s\n", yytext);  return IDENTIFIER;  }
+{IDENTIFIER}                    { printf("IDENTIFIER: %s\n", yytext);  return IDENTIFIER;  }
 {DIGIT}+                { printf("INT: %s \n", yytext); return INT; }
 {DIGIT}+[.]{DIGIT}+     { printf("FLOAT: %s \n", yytext); return FLOAT; }
 
@@ -74,9 +75,8 @@ int yywrap() {
 }
 
 
-int main(int argc, char **argv)
+int main()
 {
-    printf("Enter a string: ");
     yylex();
     return 0;
 }

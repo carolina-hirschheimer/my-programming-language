@@ -1,9 +1,9 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 int yylex();
-void yyerror(char const *);
+void yyerror(const char *s) { printf("ERROR: %s\n", s); }
 
 %}
 
@@ -15,95 +15,70 @@ void yyerror(char const *);
 
 %%
 
-program:
-    | program statement NEWLINE
+program : statement_list 
+        ;
+
+block : statement_list
+      ;
+        
+statement_list : statement
+               | statement_list statement
+               ;
+        
+statement : POSITION IDENTIFIER COLON relexpression
+          | IDENTIFIER EQUAL relexpression
+          | PRINT LPAREN print_list RPAREN
+          | IF LPAREN relexpression RPAREN block
+          | IF LPAREN relexpression RPAREN block ELSE block
+          | WHILE LPAREN relexpression RPAREN block 
+          | FUNCTION_DECLARATION IDENTIFIER LPAREN parameter_list RPAREN block
+          | FUNCTION_CALL IDENTIFIER LPAREN parameter_list RPAREN
+          | SHOOT relexpression
+          ;
+
+parameter_list : IDENTIFIER
+               | parameter_list COMMA IDENTIFIER
+               ;
+
+print_list : relexpression
+           | print_list COMMA relexpression
+           ;
+
+relexpression: expression EQUAL_TO expression
+             | expression GT expression
+             | expression LT expression
+             | expression
+             ;
+
+// ok
+expression: term PLUS term
+          | term MINUS term
+          | term OR term
+          | term
+          ;
+
+// ok          
+term: factor
+    | term MULT factor
+    | term DIV factor
+    | term AND factor
     ;
 
-statement:
-    ASSIGNMENT
-    | PRINT OPEN_PARENTHESIS OR_EXPRESSION CLOSE_PARENTHESIS
-    | WHILE OPEN_PARENTHESIS OR_EXPRESSION CLOSE_PARENTHESIS OPEN_BRACES program CLOSE_BRACES
-    | IF OPEN_PARENTHESIS EXPRESSION CLOSE_PARENTHESIS OPEN_BRACES program CLOSE_BRACES ELSE_RULE
-    | FUNCTION IDENTIFIER OPEN_PARENTHESIS argument_list CLOSE_PARENTHESIS OPEN_BRACES program return_statement CLOSE_BRACES
-    | CALL_FUNCTION
+
+factor: INTEGER 
+    | STRING 
+    | COORDINATE
+    | IDENTIFIER 
+    | PLUS factor
+    | MINUS factor
+    | NOT factor
+    | LPAREN relexpression RPAREN
     ;
 
-argument_list:
-    | IDENTIFIER
-    | IDENTIFIER COMMA argument_list
-    ;
-
-return_statement:
-    | RETURN OR_EXPRESSION NEWLINE
-    ;
-
-ASSIGNMENT:
-    IDENTIFIER EQUAL_EXPR EXPRESSION NEWLINE
-    ;
-
-EXPRESSION:
-    EXPRESSION PLUS TERM
-    | EXPRESSION MINUS TERM
-    | TERM
-    ;
-
-TERM:
-    TERM MULT FACTOR
-    | TERM DIV FACTOR
-    | FACTOR
-    ;
-
-FACTOR:
-    PLUS FACTOR
-    | MINUS FACTOR
-    | NOT FACTOR
-    | OPEN_PARENTHESIS OR_EXPRESSION CLOSE_PARENTHESIS
-    | INT
-    | FLOAT
-    | STRING
-    | BOOLEAN
-    | IDENTIFIER
-    ;
-
-CALL_FUNCTION:
-    IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS
-    | IDENTIFIER OPEN_PARENTHESIS argument_list CLOSE_PARENTHESIS
-    ;
-
-OR_EXPRESSION:
-    AND_EXPRESSION
-    | OR_EXPRESSION OR_EXPR AND_EXPRESSION
-    ;
-
-AND_EXPRESSION:
-    EQUAL_EXPRESSION
-    | AND_EXPRESSION AND_EXPR EQUAL_EXPRESSION
-    ;
-
-EQUAL_EXPRESSION:
-    COMPARE_EXPRESSION
-    | EQUAL_EXPRESSION EQUAL_EXPR COMPARE_EXPRESSION
-    ;
-
-COMPARE_EXPRESSION:
-    EXPRESSION
-    | EXPRESSION COMPARE_EXPR EXPRESSION
-    ;
-
-ELSE_RULE:
-    | ELSE OPEN_BRACES program CLOSE_BRACES
-    ;
-
-ELSE:
-    ELSE
-    ;
 
 %%
-void yyerror(char const *s) {
-    printf("%s\n", s);
-}
 
-int main(int argc, char **argv) {
-    yyparse();
-    return 0;
+int main(){
+  yyparse();
+  return 0;
 }
