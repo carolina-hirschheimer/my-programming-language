@@ -8,14 +8,16 @@ Este projeto faz parte da disciplina de Lógica da Computação (7º Semestre de
 ```
 BLOCK = { STATEMENT };
 STATEMENT = ( λ | ASSIGNMENT | PRINT | WHILE | IF | FUNCTION | CALL_FUNCTION), "\n" ;
-ASSIGNMENT = IDENTIFIER, "=", EXPRESSION ;
+ASSIGNMENT = TYPE, IDENTIFIER |
+             TYPE, IDENTIFIER, "=", EXPRESSION ;
 
 PRINT = "imprimir", "(", OR_EXPRESSION, ")" ;
+READLN = "le_linha", "(", ")" ;  
 WHILE = "enquanto", "(",  OR_EXPRESSION, ")", "{", STATEMENT, "}" ;
-IF = "se", "(", EXPRESSION, ")", "{", STATEMENT, "}" |
-     "se", "(", EXPRESSION, ")", "{", STATEMENT, "}", "senao", "{", STATEMENT, "}" ;
+IF = "se", EXPRESSION, "{", STATEMENT, "}" |
+     "se", EXPRESSION, "{", STATEMENT, "}", "senao", "{", STATEMENT, "}" ;
 
-FUNCTION = "definir", IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")",  "{", { STATEMENT }, "}", RETURN, OR_EXPRESSION;
+FUNCTION = "definir", TYPE, IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")",  "{", { STATEMENT }, RETURN, OR_EXPRESSION, "}";
 RETURN = "retorna" OR_EXPRESSION;
 CALL_FUNCTION = IDENTIFIER, "(", [ IDENTIFIER, { ",", IDENTIFIER } ], ")";
 
@@ -31,8 +33,7 @@ IDENTIFIER = TYPE, LETTER, {LETTER | DIGIT | "_"};
 NUMBER = DIGIT, {DIGIT};
 LETTER = (A | ... | Z | a | ... | z);
 DIGIT = (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0);
-BOOLEAN = "verdadeiro" | "falso";
 STRING = """, { {LETTER | DIGIT | "_"} | SPACE }, """;
 SPACE = " ";
-TYPE = "int" | "bool" | "texto"
+TYPE = "int" | "texto"
 ```
