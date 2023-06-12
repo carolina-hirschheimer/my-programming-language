@@ -1,15 +1,8 @@
-imprimir('oi')
-int a recebe 1
-int b recebe 2
-imprimir(a)
-se (a + b igual_a 3) {
-    imprimir(a+b)
-} 
-senao {
-    imprimir('nao eh')
+definir int soma(int a, int b) {
+    retorna a + b
 }
-definir soma(x,y) {
-    int res recebe x+y
-    retorna res
-}
-soma(a,b)
+int x = 1
+int y = 2
+int z = soma (x,y)
+imprimir(z)
+
