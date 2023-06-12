@@ -1,0 +1,9 @@
+definir int soma(int a, int b) {
+    retorna a + b
+}
+int x = 1
+int y = 2
+
+int z = soma (x,y)
+imprimir(z)
+
