@@ -3,6 +3,19 @@ definir int soma(int a, int b) {
 }
 int x = 1
 int y = 2
+
+se x maior_que y {
+    imprimir("rosa")
+} senao {
+    imprimir("azul")
+}
+
+imprimir("digite um numero:")
+int m = le_linha()
+imprimir(m+x)
+imprimir(x igual_a y)
+imprimir(x maior_que y)
+imprimir(x menor_que y)
 int z = soma (x,y)
 imprimir(z)
 

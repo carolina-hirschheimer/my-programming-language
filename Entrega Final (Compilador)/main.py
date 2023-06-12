@@ -33,7 +33,7 @@ class Tokenizer():
         number_tokens = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
         letters_tokens = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         operation_tokens = ['+', '-', '*', '/', '(', ')', '=', '\n', '>', '<', '!', ':', '.', ',', '{', '}']
-        reserved_words = ['imprimir', 'se', 'senao', 'enquanto', 'lelinha', 'ou', 'e', 'end', '==', "int", "texto", "retorna", "definir"]
+        reserved_words = ['imprimir', 'se', 'senao', 'enquanto', 'le_linha', 'ou', 'e', 'end', '==', "int", "texto", "retorna", "definir", "maior_que", "menor_que", "igual_a"]
 
         walking_in_string = True
 
@@ -64,28 +64,12 @@ class Tokenizer():
             if i == '}':
                 self.next = Token(i, 'BRACES')
             elif i == "=":
-                if self.source[self.position + 1] == "=":
-                    #print("consigo ler")
-                    self.next = Token("==", "EQEQUALS")
-                    self.position += 1
-                else:
-                    self.next = Token(i, 'EQUALS')
+                self.next = Token(i, 'EQUALS')
             if i == '\n':
                 self.next = Token(i, 'ENTER')
                 #print("blaa1")
-            if i == '>':
-                self.next = Token(i, 'GREATER')
-            if i == '<':
-                self.next = Token(i, 'LESS')
-                #print("asdf")
             if i == '!':
                 self.next = Token(i, 'NOT')
-            if i == ":":
-                if self.source[self.position + 1] == ":":
-                    self.next = Token("::", "DECLARE")
-                    self.position+=1
-                else:
-                    raise Exception("Erro Lexico")
             if i == ".":
                 self.next = Token(i, "CONCAT")
             if i == ",":
@@ -214,19 +198,19 @@ class BinOp(Node):
                     return ("int", int(self.children[0].evaluate(table)[1] or self.children[1].evaluate(table)[1]))
                 elif self.value == 'e':
                     return ("int", int(self.children[0].evaluate(table)[1] and self.children[1].evaluate(table)[1]))
-                elif self.value == '==':
+                elif self.value == 'igual_a':
                     return ("int", int(self.children[0].evaluate(table)[1] == self.children[1].evaluate(table)[1]))
-                elif self.value == '>':
+                elif self.value == 'maior_que':
                     return ("int", int(self.children[0].evaluate(table)[1] > self.children[1].evaluate(table)[1]))
-                elif self.value == '<':
+                elif self.value == 'menor_que':
                     return ("int", int(self.children[0].evaluate(table)[1] < self.children[1].evaluate(table)[1]))
             
             else:
-                if self.value == '==':
+                if self.value == 'igual_a':
                     return ("int", int(self.children[0].evaluate(table)[1] == self.children[1].evaluate(table)[1]))
-                elif self.value == '>':
+                elif self.value == 'maior_que':
                     return ("int", int(self.children[0].evaluate(table)[1] > self.children[1].evaluate(table)[1]))
-                elif self.value == '<':
+                elif self.value == 'menor_que':
                     return ("int", int(self.children[0].evaluate(table)[1] < self.children[1].evaluate(table)[1]))
                 else:
                     raise Exception("type attribution error")
@@ -746,23 +730,23 @@ class Parser():
     @staticmethod
     def parseRelExpression(): 
 
-        operation_types = ['EQEQUALS', 'GREATER', 'LESS']
+        operation_types = ['IGUAL_A', 'MAIOR_QUE', 'MENOR_QUE']
         result = Parser.parseExpression()
         current_token = Parser.tokenizer.next
 
         while current_token.type in operation_types:
 
-            if current_token.type == 'EQEQUALS':
+            if current_token.type == 'IGUAL_A':
                 Parser.tokenizer.selectNext()
                 result = BinOp(current_token.value, [result, Parser.parseExpression()])
                 current_token = Parser.tokenizer.next 
 
-            elif current_token.type == 'GREATER':
+            elif current_token.type == 'MAIOR_QUE':
                 Parser.tokenizer.selectNext()
                 result = BinOp(current_token.value, [result, Parser.parseExpression()])
                 current_token = Parser.tokenizer.next
 
-            elif current_token.type == 'LESS':
+            elif current_token.type == 'MENOR_QUE':
                 Parser.tokenizer.selectNext()
                 result = BinOp(current_token.value, [result, Parser.parseExpression()])
                 current_token = Parser.tokenizer.next 
@@ -889,7 +873,7 @@ class Parser():
                 current_token = Parser.tokenizer.next
                 #print(current_token.type)
         
-        elif current_token.type == 'LELINHA':
+        elif current_token.type == 'LE_LINHA':
             Parser.tokenizer.selectNext()
             current_token = Parser.tokenizer.next
             if current_token.value == '(':
@@ -934,5 +918,5 @@ function_symbol_table = FunctionTable()
 args = sys.argv
 with open(args[1], "r") as f:
     string = f.read()
-    print(string)
+    #print(string)
     parser.run(string)
